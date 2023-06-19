@@ -1,8 +1,14 @@
-// n should be received from main thread
+import { isMainThread } from 'node:worker_threads';
+
+
 const nthFibonacci = (n) => n < 2 ? n : nthFibonacci(n - 1) + nthFibonacci(n - 2);
 
 const sendResult = () => {
-    // This function sends result of nthFibonacci computations to main thread
+    if (isMainThread) {
+        console.log(nthFibonacci(15));
+    } else {
+        console.log(isMainThread);
+    }
 };
 
 sendResult();
